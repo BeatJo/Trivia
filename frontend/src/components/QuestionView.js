@@ -18,6 +18,7 @@ class QuestionView extends Component {
 
   componentDidMount() {
     this.getQuestions();
+    console.log(this.state.questions)
   }
 
   getQuestions = () => {
@@ -84,7 +85,7 @@ class QuestionView extends Component {
 
   submitSearch = (searchTerm) => {
     $.ajax({
-      url: `/questions`, //TODO: update request URL
+      url: `/questions/search`, //TODO: update request URL
       type: 'POST',
       dataType: 'json',
       contentType: 'application/json',
@@ -142,14 +143,14 @@ class QuestionView extends Component {
               <li
                 key={id}
                 onClick={() => {
-                  this.getByCategory(id);
+                  this.getByCategory(this.state.categories[id].id);
                 }}
               >
-                {this.state.categories[id]}
+                {this.state.categories[id].type}
                 <img
                   className='category'
-                  alt={`${this.state.categories[id].toLowerCase()}`}
-                  src={`${this.state.categories[id].toLowerCase()}.svg`}
+                  alt={`${this.state.categories[id].type.toLowerCase()}`}
+                  src={`${this.state.categories[id].type.toLowerCase()}.svg`}
                 />
               </li>
             ))}
@@ -163,7 +164,7 @@ class QuestionView extends Component {
               key={q.id}
               question={q.question}
               answer={q.answer}
-              category={this.state.categories[q.category]}
+              category={this.state.categories[q.category - 1].type}
               difficulty={q.difficulty}
               questionAction={this.questionAction(q.id)}
             />
