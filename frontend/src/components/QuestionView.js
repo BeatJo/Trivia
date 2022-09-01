@@ -18,7 +18,6 @@ class QuestionView extends Component {
 
   componentDidMount() {
     this.getQuestions();
-    console.log(this.state.questions)
   }
 
   getQuestions = () => {
